@@ -22,9 +22,9 @@ func (rover RoverBasic) ControlRover(NextCommand string) (err error) {
 			err = errors.New("direction not support")
 		}
 	} else if NextCommand == "L" {
-		rover.direction, err = moveLeft90Degree(direction)
+		rover.direction, err = turnLeft90Degree(direction)
 	} else if NextCommand == "R" {
-		rover.direction, err = moveLeft90Degree(direction)
+		rover.direction, err = turnRight90Degree(direction)
 	} else {
 		err = errors.New("command not support on basic rover")
 	}

@@ -11,6 +11,8 @@ var edge = mapSize - 1
 var iniX int
 var iniY int
 
+var iniDirection = "N"
+
 func TestMoveNorth(t *testing.T) {
 	//case normal
 	position := TwoDPosition{edge, iniX, iniY}
@@ -81,4 +83,82 @@ func TestMoveWest(t *testing.T) {
 	require.Equal(t, newPosition.positionY, iniY)
 	require.Error(t, err)
 	require.Equal(t, err.Error(), "unable to move west is over the edge")
+}
+
+func TestTurnLeft90Degree(t *testing.T) {
+	//case un support
+	_, errUnsupport := turnLeft90Degree("NW")
+	require.Error(t, errUnsupport)
+
+	//case normal
+	direction, err := turnLeft90Degree(iniDirection)
+	require.NoError(t, err)
+	require.NotEmpty(t, direction)
+	require.Equal(t, direction, "W")
+
+	direction, err = turnLeft90Degree("W")
+	require.NoError(t, err)
+	require.NotEmpty(t, direction)
+	require.Equal(t, direction, "S")
+
+	direction, err = turnLeft90Degree("S")
+	require.NoError(t, err)
+	require.NotEmpty(t, direction)
+	require.Equal(t, direction, "E")
+
+	direction, err = turnLeft90Degree("E")
+	require.NoError(t, err)
+	require.NotEmpty(t, direction)
+	require.Equal(t, direction, "N")
+
+	//move 360 Degree back to init value
+	for i := 0; i < 4; i++ {
+		direction, _ = turnLeft90Degree(direction)
+	}
+	require.Equal(t, direction, iniDirection)
+}
+
+func TestTurnRight90Degree(t *testing.T) {
+	//case un support
+	_, errUnsupport := turnRight90Degree("NW")
+	require.Error(t, errUnsupport)
+
+	//case normal
+	direction, err := turnRight90Degree(iniDirection)
+	require.NoError(t, err)
+	require.NotEmpty(t, direction)
+	require.Equal(t, direction, "E")
+
+	direction, err = turnRight90Degree("E")
+	require.NoError(t, err)
+	require.NotEmpty(t, direction)
+	require.Equal(t, direction, "S")
+
+	direction, err = turnRight90Degree("S")
+	require.NoError(t, err)
+	require.NotEmpty(t, direction)
+	require.Equal(t, direction, "W")
+
+	direction, err = turnRight90Degree("W")
+	require.NoError(t, err)
+	require.NotEmpty(t, direction)
+	require.Equal(t, direction, "N")
+
+	//move 360 Degree back to init value
+	for i := 0; i < 4; i++ {
+		direction, _ = turnRight90Degree(direction)
+	}
+	require.Equal(t, direction, iniDirection)
+}
+
+func TestTurnOver1cycle(t *testing.T) {
+	direction := iniDirection
+	for i := 0; i < 8; i++ {
+		direction, _ = turnLeft90Degree(direction)
+	}
+	for j := 0; j < 8; j++ {
+		direction, _ = turnRight90Degree(direction)
+	}
+	require.NotEmpty(t, direction)
+	require.Equal(t, direction, "N")
 }
