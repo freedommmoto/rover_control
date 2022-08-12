@@ -33,14 +33,26 @@ func moveNorth(po TwoDPosition) (TwoDPosition, error) {
 }
 
 func moveSouth(po TwoDPosition) (TwoDPosition, error) {
+	if po.positionY-1 < 0 {
+		return po, errors.New("unable to move south is over the edge")
+	}
+	po.positionY--
 	return po, nil
 }
 
 func moveEast(po TwoDPosition) (TwoDPosition, error) {
+	if po.positionX+1 > po.edge {
+		return po, errors.New("unable to move east is over the edge")
+	}
+	po.positionX++
 	return po, nil
 }
 
 func moveWest(po TwoDPosition) (TwoDPosition, error) {
+	if po.positionX-1 < 0 {
+		return po, errors.New("unable to move west is over the edge")
+	}
+	po.positionX--
 	return po, nil
 }
 
