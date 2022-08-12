@@ -2,6 +2,7 @@ package services
 
 import (
 	"fmt"
+	"github.com/freedommmoto/rover_control/tool"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
@@ -70,14 +71,15 @@ func TestControlRoverWithDemoRoute(t *testing.T) {
 	rover := RoverBasic{direction: "N", position2d: position}
 
 	route := [8]string{"R", "F", "L", "F", "L", "L", "F", "R"}
-	//routeOutputFormat := [8]string{"N:0,0", "E:0,0", "E:1,0", "N:1,0", "W:1,1", "S:1,1", "S:1,0", "W:1,0"}
-	//var formatPosition string
+	routeOutputFormat := [9]string{"N:0,0", "E:0,0", "E:1,0", "N:1,0", "N:1,1", "W:1,1", "S:1,1", "S:1,0", "W:1,0"}
+	var formatPosition string
 	var err error
-	for _, s := range route {
-		fmt.Println(s)
+
+	for i, s := range route {
 		err = rover.ControlRover(s)
-		//formatPosition = tool.FormatPositionRover(rover)
-		fmt.Println(rover)
+		formatPosition = tool.FormatPositionRover(rover.direction, rover.position2d.positionX, rover.position2d.positionY)
+		require.Equal(t, routeOutputFormat[i+1], formatPosition)
+		fmt.Println(formatPosition)
 		require.NoError(t, err)
 	}
 	positionAfterMove := rover.position2d
