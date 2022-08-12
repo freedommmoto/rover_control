@@ -20,5 +20,5 @@ jobs:
           go-version: 1.18
 
       - name: build and test
-        uses: make test
+        run: make test
 
