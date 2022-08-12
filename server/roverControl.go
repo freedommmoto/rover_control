@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func (rover RoverBasic) ControlRover(NextCommand string) (err error) {
+func (rover *RoverBasic) ControlRover(NextCommand string) (err error) {
 	direction := strings.ToUpper(rover.direction)
 
 	if NextCommand == "F" {
@@ -13,11 +13,11 @@ func (rover RoverBasic) ControlRover(NextCommand string) (err error) {
 		case "N":
 			rover.position2d, err = moveNorth(rover.position2d)
 		case "W":
-			rover.position2d, err = moveNorth(rover.position2d)
+			rover.position2d, err = moveWest(rover.position2d)
 		case "E":
-			rover.position2d, err = moveNorth(rover.position2d)
+			rover.position2d, err = moveEast(rover.position2d)
 		case "S":
-			rover.position2d, err = moveNorth(rover.position2d)
+			rover.position2d, err = moveSouth(rover.position2d)
 		default:
 			err = errors.New("direction not support")
 		}
@@ -35,7 +35,7 @@ func (rover RoverBasic) ControlRover(NextCommand string) (err error) {
 	return nil
 }
 
-func (rover RoverAdvanced) ControlRover(NextCommand string) (err error) {
+func (rover *RoverAdvanced) ControlRover(NextCommand string) (err error) {
 	//direction := strings.ToUpper(rover.direction)
 
 	if NextCommand == "F" {
