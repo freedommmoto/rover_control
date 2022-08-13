@@ -7,9 +7,15 @@ import (
 )
 
 type RoverStatus struct {
-	status      RoverBasic
-	currentStep int    `json:"current_step"`
-	statusSting string `json:"status_text_format"`
+	Status      RoverStatusInfo `json:"status"`
+	CurrentStep int             `json:"current_step"`
+	StatusSting string          `json:"status_text_format"`
+}
+
+type RoverStatusInfo struct {
+	Direction string `json:"direction"`
+	PositionX int    `json:"position_x"`
+	PositionY int    `json:"position_y"`
 }
 
 func ControlRoverFromCurrentStep(CurrentStep int, mapSize int, roverCommand []string) (rs RoverStatus, err error) {
@@ -20,8 +26,8 @@ func ControlRoverFromCurrentStep(CurrentStep int, mapSize int, roverCommand []st
 
 	//if first step no need to move rover
 	if CurrentStep == 0 {
-		rs.status = rover
-		rs.statusSting = tool.FormatPositionRover(rover.direction, rover.position2d.positionX, rover.position2d.positionY)
+		rs.Status = RoverStatusInfo{Direction: "N", PositionX: 0, PositionY: 0}
+		rs.StatusSting = "N:0,0"
 		return rs, nil
 	}
 
@@ -36,9 +42,11 @@ func ControlRoverFromCurrentStep(CurrentStep int, mapSize int, roverCommand []st
 		formatPosition = tool.FormatPositionRover(rover.direction, rover.position2d.positionX, rover.position2d.positionY)
 	}
 
-	rs.currentStep = CurrentStep
-	rs.status = rover
-	rs.statusSting = formatPosition
+	rs.CurrentStep = CurrentStep
+	rs.Status.Direction = rover.direction
+	rs.Status.PositionX = rover.position2d.positionX
+	rs.Status.PositionY = rover.position2d.positionY
+	rs.StatusSting = formatPosition
 	return rs, nil
 }
 

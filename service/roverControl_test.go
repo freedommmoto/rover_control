@@ -91,7 +91,7 @@ func TestControlRoverFromCurrentStep(t *testing.T) {
 	//test all step
 	for i, _ := range DemoRoute {
 		roverStatus, err := ControlRoverFromCurrentStep(i, mapSize, DemoRoute)
-		require.Equal(t, roverStatus.statusSting, DemoRouteOutputFormat[i])
+		require.Equal(t, roverStatus.StatusSting, DemoRouteOutputFormat[i])
 		require.NoError(t, err)
 		require.NotEmpty(t, roverStatus)
 	}
@@ -101,8 +101,8 @@ func TestControlRoverFromCurrentStep(t *testing.T) {
 		randomInt := tool.RandomInt(0, len(DemoRoute))
 		roverStatus, err := ControlRoverFromCurrentStep(randomInt, mapSize, DemoRoute)
 		fmt.Println("current step is:", randomInt+1)
-		fmt.Println(roverStatus.statusSting)
-		require.Equal(t, roverStatus.statusSting, DemoRouteOutputFormat[randomInt])
+		fmt.Println(roverStatus.StatusSting)
+		require.Equal(t, roverStatus.StatusSting, DemoRouteOutputFormat[randomInt])
 		require.NoError(t, err)
 	}
 }
