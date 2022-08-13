@@ -1,11 +1,18 @@
 package main
 
-import "fmt"
+import (
+	"github.com/freedommmoto/rover_control/api"
+	"log"
+)
 
 func main() {
-	fmt.Println(ReturnInitSting())
+	server := api.NewServer()
+	err := server.Start(getServerAddress())
+	if err != nil {
+		log.Fatal("can't start server with gin "+getServerAddress(), err)
+	}
 }
 
-func ReturnInitSting() string {
-	return "init project"
+func getServerAddress() string {
+	return "0.0.0.0:8884"
 }

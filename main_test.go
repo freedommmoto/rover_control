@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestReturnInitSting(t *testing.T) {
-	initStr := ReturnInitSting()
+func TestGetServerAddress(t *testing.T) {
+	initStr := getServerAddress()
 	require.NotEmpty(t, initStr)
 }
