@@ -11,12 +11,12 @@ func TestReadInstructionsFile(t *testing.T) {
 	require.Error(t, err)
 	require.Empty(t, scanner)
 
-	loadFileScanner(t)
+	loadFileScanner(t, "../instructions_file/mock_instructions_for_test_ok.txt")
 }
 
 func TestReadTextToSlice(t *testing.T) {
 	nilArray := make([]string, 0)
-	scanner := loadFileScanner(t)
+	scanner := loadFileScanner(t, "../instructions_file/mock_instructions_for_test_ok.txt")
 	dataFromFile, err := ReadFile(scanner)
 
 	require.NoError(t, err)
@@ -24,8 +24,8 @@ func TestReadTextToSlice(t *testing.T) {
 	require.NotEmpty(t, dataFromFile)
 }
 
-func loadFileScanner(t *testing.T) *FileScanner {
-	scanner, err := checkFileExists("../instructions_file/mock_instructions_for_test_ok.txt")
+func loadFileScanner(t *testing.T, path string) *FileScanner {
+	scanner, err := checkFileExists(path)
 	require.NoError(t, err)
 	require.NotEmpty(t, scanner)
 	return scanner

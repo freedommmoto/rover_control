@@ -1,0 +1,15 @@
+24
+W
+5
+F
+W
+S
+S
+F
+S
+F
+2
+
+F
+
+forward
