@@ -69,12 +69,11 @@ func TestControlRoverWithDemoRoute(t *testing.T) {
 	position := TwoDPosition{edge, iniX, iniY}
 	rover := RoverBasic{direction: "N", position2d: position}
 
-	route := [8]string{"R", "F", "L", "F", "L", "L", "F", "R"}
 	routeOutputFormat := [9]string{"N:0,0", "E:0,0", "E:1,0", "N:1,0", "N:1,1", "W:1,1", "S:1,1", "S:1,0", "W:1,0"}
 	var formatPosition string
 	var err error
 
-	for i, s := range route {
+	for i, s := range DemoRoute {
 		err = rover.ControlRover(s)
 		formatPosition = tool.FormatPositionRover(rover.direction, rover.position2d.positionX, rover.position2d.positionY)
 		require.Equal(t, routeOutputFormat[i+1], formatPosition)
