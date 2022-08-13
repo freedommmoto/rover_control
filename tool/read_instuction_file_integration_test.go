@@ -1,10 +1,11 @@
 package tool
 
 import (
-	service "github.com/freedommmoto/rover_control/service"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
+
+var DemoRoute = []string{"R", "F", "L", "F", "L", "L", "F", "R"}
 
 func TestReadInstructionsFileIntegration(t *testing.T) {
 	//read and format from fail file
@@ -32,5 +33,5 @@ func TestReadInstructionsFile(t *testing.T) {
 	require.NoError(t, err)
 	require.NotEmpty(t, mapSize)
 	require.NotEmpty(t, roverPart)
-	require.Equal(t, service.DemoRoute, roverPart)
+	require.Equal(t, DemoRoute, roverPart)
 }
