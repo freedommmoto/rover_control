@@ -16,7 +16,6 @@ func TestMapInfoHandler(t *testing.T) {
 	w := httptest.NewRecorder()
 	router.ServeHTTP(w, req)
 	responseData, _ := ioutil.ReadAll(w.Body)
-
 	require.Equal(t, mockResponse, string(responseData))
 	require.Equal(t, http.StatusOK, w.Code)
 
