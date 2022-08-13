@@ -5,6 +5,8 @@ import (
 	"strconv"
 )
 
+var DemoRouteOutputFormat = [9]string{"N:0,0", "E:0,0", "E:1,0", "N:1,0", "N:1,1", "W:1,1", "S:1,1", "S:1,0", "W:1,0"}
+
 func FormatPositionRover(direction string, positionX int, positionY int) string {
 	positionXStr := strconv.Itoa(positionX)
 	positionYStr := strconv.Itoa(positionY)

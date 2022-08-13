@@ -5,7 +5,9 @@ import (
 	"testing"
 )
 
-func TestReadInstuctionFileIntegration(t *testing.T) {
+var DemoRoute = []string{"R", "F", "L", "F", "L", "L", "F", "R"}
+
+func TestReadInstructionsFileIntegration(t *testing.T) {
 	//read and format from fail file
 	scanner := loadFileScanner(t, "../instructions_file/mock_instructions_for_test_fail.txt")
 	dataFromFile, err := ReadFile(scanner)
@@ -24,4 +26,12 @@ func TestReadInstuctionFileIntegration(t *testing.T) {
 
 	_, _, err = FormatStingSliceToRoverCommand(dataFromFileOK)
 	require.NoError(t, err)
+}
+
+func TestReadInstructionsFile(t *testing.T) {
+	mapSize, roverPart, err := ReadInstructionsFile("../instructions_file/instructions.txt")
+	require.NoError(t, err)
+	require.NotEmpty(t, mapSize)
+	require.NotEmpty(t, roverPart)
+	require.Equal(t, DemoRoute, roverPart)
 }

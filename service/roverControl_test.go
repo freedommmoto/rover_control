@@ -69,18 +69,37 @@ func TestControlRoverWithDemoRoute(t *testing.T) {
 	position := TwoDPosition{edge, iniX, iniY}
 	rover := RoverBasic{direction: "N", position2d: position}
 
-	route := [8]string{"R", "F", "L", "F", "L", "L", "F", "R"}
-	routeOutputFormat := [9]string{"N:0,0", "E:0,0", "E:1,0", "N:1,0", "N:1,1", "W:1,1", "S:1,1", "S:1,0", "W:1,0"}
 	var formatPosition string
 	var err error
 
-	for i, s := range route {
+	for i, s := range DemoRoute {
 		err = rover.ControlRover(s)
 		formatPosition = tool.FormatPositionRover(rover.direction, rover.position2d.positionX, rover.position2d.positionY)
-		require.Equal(t, routeOutputFormat[i+1], formatPosition)
+		require.Equal(t, tool.DemoRouteOutputFormat[i+1], formatPosition)
 		require.NoError(t, err)
 	}
 	positionAfterMove := rover.position2d
 	require.Equal(t, positionAfterMove, TwoDPosition{edge, 1, 0})
 
+}
+
+func TestControlRoverFromCurrentStep(t *testing.T) {
+
+	//test all step
+	for i, _ := range DemoRoute {
+		roverStatus, err := ControlRoverFromCurrentStep(i, mapSize, DemoRoute)
+		require.Equal(t, roverStatus.StatusSting, tool.DemoRouteOutputFormat[i])
+		require.NoError(t, err)
+		require.NotEmpty(t, roverStatus)
+	}
+
+	//test random step reuest
+	for j := 0; j < 4; j++ {
+		randomInt := tool.RandomInt(0, len(DemoRoute))
+		roverStatus, err := ControlRoverFromCurrentStep(randomInt, mapSize, DemoRoute)
+		//fmt.Println("current step is:", randomInt+1)
+		//fmt.Println(roverStatus.StatusSting)
+		require.Equal(t, roverStatus.StatusSting, tool.DemoRouteOutputFormat[randomInt])
+		require.NoError(t, err)
+	}
 }

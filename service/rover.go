@@ -18,6 +18,7 @@ var mapTurnRight = map[string]string{
 	"S": "W",
 	"W": "N",
 }
+var DemoRoute = []string{"R", "F", "L", "F", "L", "L", "F", "R"}
 
 type RoverBasicControl interface {
 	ControlRover(NextCommand string) error
