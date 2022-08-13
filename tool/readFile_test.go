@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestReadInstructionsFile(t *testing.T) {
+func TestCheckFileExists(t *testing.T) {
 	//test load non file exits
 	scanner, err := checkFileExists("mock_instructions_for_test_ok.txt")
 	require.Error(t, err)
