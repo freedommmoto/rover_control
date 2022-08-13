@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	service "github.com/freedommmoto/rover_control/service"
 	"github.com/freedommmoto/rover_control/tool"
 	"github.com/gin-gonic/gin"
@@ -10,8 +9,7 @@ import (
 )
 
 func (server *Server) roverStatus(ctx *gin.Context) {
-	fmt.Println("roverStatus")
-	fmt.Println(ctx.GetQuery("step"))
+
 	step, exit := ctx.GetQuery("step")
 	intStep, err := strconv.Atoi(step)
 	if !exit || err != nil {

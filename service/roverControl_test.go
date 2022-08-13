@@ -1,7 +1,6 @@
 package services
 
 import (
-	"fmt"
 	"github.com/freedommmoto/rover_control/tool"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -98,8 +97,8 @@ func TestControlRoverFromCurrentStep(t *testing.T) {
 	for j := 0; j < 4; j++ {
 		randomInt := tool.RandomInt(0, len(DemoRoute))
 		roverStatus, err := ControlRoverFromCurrentStep(randomInt, mapSize, DemoRoute)
-		fmt.Println("current step is:", randomInt+1)
-		fmt.Println(roverStatus.StatusSting)
+		//fmt.Println("current step is:", randomInt+1)
+		//fmt.Println(roverStatus.StatusSting)
 		require.Equal(t, roverStatus.StatusSting, tool.DemoRouteOutputFormat[randomInt])
 		require.NoError(t, err)
 	}
