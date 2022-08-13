@@ -14,6 +14,7 @@ func setUpRouter() *gin.Engine {
 	router := gin.Default()
 	router.GET("/status", server.status)
 	router.GET("/map-info", server.mapInfo)
+	router.GET("/rover-status", server.roverStatus)
 	return router
 }
 
