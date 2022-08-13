@@ -2,8 +2,45 @@ package services
 
 import (
 	"errors"
+	"github.com/freedommmoto/rover_control/tool"
 	"strings"
 )
+
+type RoverStatus struct {
+	status      RoverBasic
+	currentStep int    `json:"current_step"`
+	statusSting string `json:"status_text_format"`
+}
+
+func ControlRoverFromCurrentStep(CurrentStep int, mapSize int, roverCommand []string) (rs RoverStatus, err error) {
+	//init rover
+	position := TwoDPosition{mapSize - 1, 0, 0}
+	rover := RoverBasic{direction: "N", position2d: position}
+	var formatPosition string
+
+	//if first step no need to move rover
+	if CurrentStep == 0 {
+		rs.status = rover
+		rs.statusSting = tool.FormatPositionRover(rover.direction, rover.position2d.positionX, rover.position2d.positionY)
+		return rs, nil
+	}
+
+	//move rover after first step
+	roverCommandThisStep := roverCommand[0:CurrentStep]
+
+	for _, s := range roverCommandThisStep {
+		err = rover.ControlRover(s)
+		if err != nil {
+			return rs, err
+		}
+		formatPosition = tool.FormatPositionRover(rover.direction, rover.position2d.positionX, rover.position2d.positionY)
+	}
+
+	rs.currentStep = CurrentStep
+	rs.status = rover
+	rs.statusSting = formatPosition
+	return rs, nil
+}
 
 func (rover *RoverBasic) ControlRover(NextCommand string) (err error) {
 	direction := strings.ToUpper(rover.direction)
