@@ -35,3 +35,21 @@ func ReadFile(scanner *FileScanner) ([]string, error) {
 	}
 	return allLine, nil
 }
+
+func ReadInstructionsFile(part string) (mapSize int, route []string, err error) {
+	scanner, err := checkFileExists(part)
+	var dataFromFile []string
+	if err != nil {
+		return 0, nil, err
+	}
+	dataFromFile, err = ReadFile(scanner)
+	if err != nil {
+		return 0, nil, err
+	}
+	mapSize, route, err = FormatStingSliceToRoverCommand(dataFromFile)
+	if err != nil {
+		return 0, nil, err
+	}
+
+	return mapSize, route, nil
+}
