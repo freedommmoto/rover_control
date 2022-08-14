@@ -1,1 +1,1 @@
-web: /cmd/main
+web: bin/rover_control
