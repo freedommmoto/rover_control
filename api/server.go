@@ -9,6 +9,7 @@ type Server struct {
 }
 
 var server *Server
+var FilePart = "../instructions_file/instructions.txt"
 
 func setUpRouter() *gin.Engine {
 	router := gin.Default()
@@ -26,6 +27,7 @@ func NewServer() *Server {
 	return server
 }
 
-func (server *Server) Start(address string) error {
+func (server *Server) Start(address string, filePart string) error {
+	FilePart = filePart
 	return server.router.Run(address)
 }

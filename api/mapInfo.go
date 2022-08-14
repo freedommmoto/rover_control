@@ -7,7 +7,7 @@ import (
 )
 
 func (server *Server) mapInfo(ctx *gin.Context) {
-	mapSize, roverCommand, err := tool.ReadInstructionsFile("../instructions_file/instructions.txt")
+	mapSize, roverCommand, err := tool.ReadInstructionsFile(FilePart)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),

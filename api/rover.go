@@ -19,7 +19,7 @@ func (server *Server) roverStatus(ctx *gin.Context) {
 		return
 	}
 
-	mapSize, roverCommand, err := tool.ReadInstructionsFile("../instructions_file/instructions.txt")
+	mapSize, roverCommand, err := tool.ReadInstructionsFile(FilePart)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
