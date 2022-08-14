@@ -1,1 +1,1 @@
-web: bin/rover_control
+web: rover_control
