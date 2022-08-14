@@ -16,7 +16,7 @@ func main() {
 
 func getServerAddress() string {
 	if os.Getenv("PORT") != "" {
-		return "0.0.0.0:" + os.Getenv("PORT")
+		return ":" + os.Getenv("PORT")
 	}
 	return "0.0.0.0:7472"
 }
