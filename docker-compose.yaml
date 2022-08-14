@@ -7,6 +7,6 @@ services:
     ports:
       - "7471:7471"
     environment:
-      - SERVER_ADDRESS=0.0.0.0:7471
+      - PORT=7471
       - FILE_PART=/app/instructions_file/instructions.txt
     command: [ /app/cmd/main ]
