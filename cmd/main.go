@@ -8,7 +8,7 @@ import (
 
 func main() {
 	server := api.NewServer()
-	err := server.Start(getServerAddress())
+	err := server.Start(getServerAddress(), getFilePart())
 	if err != nil {
 		log.Fatal("can't start server with gin "+getServerAddress(), err)
 	}
