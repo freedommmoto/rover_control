@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"github.com/stretchr/testify/require"
 	"io/ioutil"
 	"net/http"
@@ -17,7 +18,7 @@ func TestRoverStatusHandler(t *testing.T) {
 	router.ServeHTTP(w, req)
 	responseData, _ := ioutil.ReadAll(w.Body)
 
-	//fmt.Println(string(responseData))
+	fmt.Println(string(responseData))
 	require.Equal(t, http.StatusOK, w.Code)
 	require.Equal(t, string(responseData), returnDataStepZero)
 

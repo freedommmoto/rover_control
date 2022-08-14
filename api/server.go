@@ -9,7 +9,7 @@ type Server struct {
 }
 
 var server *Server
-var FilePart string
+var FilePart = "../instructions_file/instructions.txt"
 
 func setUpRouter() *gin.Engine {
 	router := gin.Default()
