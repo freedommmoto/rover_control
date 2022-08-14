@@ -1,1 +1,1 @@
-web: rover_control
+web: /app/bin/rover_control
