@@ -58,11 +58,11 @@ func (rover *RoverBasic) ControlRover(NextCommand string) (err error) {
 		case "N":
 			rover.position2d, err = moveNorth(rover.position2d, 1)
 		case "W":
-			rover.position2d, err = moveWest(rover.position2d)
+			rover.position2d, err = moveWest(rover.position2d, 1)
 		case "E":
-			rover.position2d, err = moveEast(rover.position2d)
+			rover.position2d, err = moveEast(rover.position2d, 1)
 		case "S":
-			rover.position2d, err = moveSouth(rover.position2d)
+			rover.position2d, err = moveSouth(rover.position2d, 1)
 		default:
 			err = errors.New("direction not support")
 		}

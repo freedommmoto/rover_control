@@ -70,27 +70,27 @@ func moveNorth(po TwoDPosition, speed int) (TwoDPosition, error) {
 	return po, nil
 }
 
-func moveSouth(po TwoDPosition) (TwoDPosition, error) {
+func moveSouth(po TwoDPosition, speed int) (TwoDPosition, error) {
 	if po.positionY-speedRover < 0 {
 		return po, errors.New("unable to move south is over the edge")
 	}
-	po.positionY -= speedRover
+	po.positionY = po.positionY - speed
 	return po, nil
 }
 
-func moveEast(po TwoDPosition) (TwoDPosition, error) {
+func moveEast(po TwoDPosition, speed int) (TwoDPosition, error) {
 	if po.positionX+speedRover > po.edge {
 		return po, errors.New("unable to move east is over the edge")
 	}
-	po.positionX += speedRover
+	po.positionX = po.positionX + speed
 	return po, nil
 }
 
-func moveWest(po TwoDPosition) (TwoDPosition, error) {
-	if po.positionX-speedRover < 0 {
+func moveWest(po TwoDPosition, speed int) (TwoDPosition, error) {
+	if po.positionX-speed < 0 {
 		return po, errors.New("unable to move west is over the edge")
 	}
-	po.positionX -= speedRover
+	po.positionX = po.positionX - speed
 	return po, nil
 }
 

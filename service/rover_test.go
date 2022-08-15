@@ -41,7 +41,7 @@ func TestMoveNorth(t *testing.T) {
 func TestMoveSouth(t *testing.T) {
 	//case normal
 	position := TwoDPosition{edge, iniX, edge}
-	newPosition, err := moveSouth(position)
+	newPosition, err := moveSouth(position, 1)
 	require.NoError(t, err)
 	require.NotEmpty(t, newPosition)
 	require.Equal(t, newPosition.positionX, iniX)
@@ -49,17 +49,24 @@ func TestMoveSouth(t *testing.T) {
 
 	//case have edge on y
 	position = TwoDPosition{edge, iniX, iniY}
-	newPosition, err = moveSouth(position)
+	newPosition, err = moveSouth(position, 1)
 	require.Equal(t, newPosition.positionX, iniX)
 	require.Equal(t, newPosition.positionY, iniY)
 	require.Error(t, err)
 	require.Equal(t, err.Error(), "unable to move south is over the edge")
+
+	//case move with speed more than 1
+	position3 := TwoDPosition{edge, iniX, edge}
+	newPosition, err = moveSouth(position3, 3)
+	require.Equal(t, iniX, newPosition.positionX)
+	require.Equal(t, edge-3, newPosition.positionY)
+	require.NoError(t, err)
 }
 
 func TestMoveEast(t *testing.T) {
 	//case normal
 	position := TwoDPosition{edge, iniX, iniY}
-	newPosition, err := moveEast(position)
+	newPosition, err := moveEast(position, 1)
 	require.NoError(t, err)
 	require.NotEmpty(t, newPosition)
 	require.Equal(t, newPosition.positionX, iniX+1)
@@ -67,17 +74,24 @@ func TestMoveEast(t *testing.T) {
 
 	//case have edge on x
 	position = TwoDPosition{edge, edge, iniY}
-	newPosition, err = moveEast(position)
+	newPosition, err = moveEast(position, 1)
 	require.Equal(t, newPosition.positionX, edge)
 	require.Equal(t, newPosition.positionY, iniY)
 	require.Error(t, err)
 	require.Equal(t, err.Error(), "unable to move east is over the edge")
+
+	//case move with speed more than 1
+	position3 := TwoDPosition{edge, iniX, iniY}
+	newPosition, err = moveEast(position3, 3)
+	require.Equal(t, newPosition.positionX, iniX+3)
+	require.Equal(t, newPosition.positionY, iniY)
+	require.NoError(t, err)
 }
 
 func TestMoveWest(t *testing.T) {
 	//case normal
 	position := TwoDPosition{edge, edge, iniY}
-	newPosition, err := moveWest(position)
+	newPosition, err := moveWest(position, 1)
 	require.NoError(t, err)
 	require.NotEmpty(t, newPosition)
 	require.Equal(t, newPosition.positionX, edge-1)
@@ -85,11 +99,18 @@ func TestMoveWest(t *testing.T) {
 
 	//case have edge on x
 	position = TwoDPosition{edge, iniX, iniY}
-	newPosition, err = moveWest(position)
+	newPosition, err = moveWest(position, 1)
 	require.Equal(t, newPosition.positionX, iniX)
 	require.Equal(t, newPosition.positionY, iniY)
 	require.Error(t, err)
 	require.Equal(t, err.Error(), "unable to move west is over the edge")
+
+	//case move with speed more than 1
+	position3 := TwoDPosition{edge, edge, iniY}
+	newPosition, err = moveWest(position3, 3)
+	require.Equal(t, newPosition.positionX, edge-3)
+	require.Equal(t, newPosition.positionY, iniY)
+	require.NoError(t, err)
 }
 
 func TestTurnLeft90Degree(t *testing.T) {
