@@ -16,7 +16,7 @@ var iniDirection = "N"
 func TestMoveNorth(t *testing.T) {
 	//case normal
 	position := TwoDPosition{edge, iniX, iniY}
-	newPosition, err := moveNorth(position)
+	newPosition, err := moveNorth(position, 1)
 	require.NoError(t, err)
 	require.NotEmpty(t, newPosition)
 	require.Equal(t, newPosition.positionX, iniX)
@@ -24,11 +24,18 @@ func TestMoveNorth(t *testing.T) {
 
 	//case have edge on y
 	position = TwoDPosition{edge, iniX, edge}
-	newPosition, err = moveNorth(position)
+	newPosition, err = moveNorth(position, 1)
 	require.Equal(t, newPosition.positionX, iniX)
 	require.Equal(t, newPosition.positionY, edge)
 	require.Error(t, err)
 	require.Equal(t, err.Error(), "unable to move north is over the edge")
+
+	//case move with speed more than 1
+	position3 := TwoDPosition{edge, iniX, iniY}
+	newPosition, err = moveNorth(position3, 3)
+	require.Equal(t, iniX, newPosition.positionX)
+	require.Equal(t, iniY+3, newPosition.positionY)
+	require.NoError(t, err)
 }
 
 func TestMoveSouth(t *testing.T) {

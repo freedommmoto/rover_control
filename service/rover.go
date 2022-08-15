@@ -62,11 +62,11 @@ type TwoDPosition struct {
 	positionY int
 }
 
-func moveNorth(po TwoDPosition) (TwoDPosition, error) {
-	if po.positionY+speedRover > po.edge {
+func moveNorth(po TwoDPosition, speed int) (TwoDPosition, error) {
+	if po.positionY+1 > po.edge {
 		return po, errors.New("unable to move north is over the edge")
 	}
-	po.positionY += speedRover
+	po.positionY = po.positionY + speed
 	return po, nil
 }
 
