@@ -6,17 +6,39 @@ import (
 
 var speedRover = 1
 
-var mapTurnLeft = map[string]string{
+var mapTurnLeft90Degree = map[string]string{
 	"N": "W",
 	"W": "S",
 	"S": "E",
 	"E": "N",
 }
-var mapTurnRight = map[string]string{
+var mapTurnRight90Degree = map[string]string{
 	"N": "E",
 	"E": "S",
 	"S": "W",
 	"W": "N",
+}
+
+var mapTurnLeft45Degree = map[string]string{
+	"N":  "NW",
+	"NW": "W",
+	"W":  "SW",
+	"SW": "S",
+	"S":  "SE",
+	"SE": "E",
+	"E":  "NE",
+	"NE": "N",
+}
+
+var mapTurnRight45Degree = map[string]string{
+	"N":  "NE",
+	"NE": "E",
+	"E":  "SE",
+	"SE": "S",
+	"S":  "SW",
+	"SW": "W",
+	"W":  "NW",
+	"NW": "N",
 }
 var DemoRoute = []string{"R", "F", "L", "F", "L", "L", "F", "R"}
 
@@ -87,12 +109,19 @@ func validationDirection90Degree(direction string) error {
 	}
 }
 
+func validationDirection45Degree(direction string) error {
+	if _, ok := mapTurnLeft45Degree[direction]; !ok {
+		return errors.New("direction not support")
+	}
+	return nil
+}
+
 func turnLeft90Degree(direction string) (string, error) {
 	err := validationDirection90Degree(direction)
 	if err != nil {
 		return direction, err
 	}
-	return mapTurnLeft[direction], nil
+	return mapTurnLeft90Degree[direction], nil
 }
 
 func turnRight90Degree(direction string) (string, error) {
@@ -100,7 +129,23 @@ func turnRight90Degree(direction string) (string, error) {
 	if err != nil {
 		return direction, err
 	}
-	return mapTurnRight[direction], nil
+	return mapTurnRight90Degree[direction], nil
+}
+
+func turnLeft45Degree(direction string) (string, error) {
+	err := validationDirection45Degree(direction)
+	if err != nil {
+		return direction, err
+	}
+	return mapTurnLeft45Degree[direction], nil
+}
+
+func turnRight45Degree(direction string) (string, error) {
+	err := validationDirection45Degree(direction)
+	if err != nil {
+		return direction, err
+	}
+	return mapTurnRight45Degree[direction], nil
 }
 
 //todo work on it after done basic rover

@@ -162,3 +162,39 @@ func TestTurnOver1cycle(t *testing.T) {
 	require.NotEmpty(t, direction)
 	require.Equal(t, direction, "N")
 }
+
+//advanced rover
+
+func TestTurnleft45Degree(t *testing.T) {
+	//case un support on basic is support now on advanced
+	_, errUnsupport := turnLeft45Degree("NE")
+	require.NoError(t, errUnsupport)
+
+	//case un support advanced
+	_, errUnsupport = turnLeft45Degree("NN")
+	require.Error(t, errUnsupport)
+
+	direction := iniDirection
+	//move 360 Degree back to init value
+	for i := 0; i < 8; i++ {
+		direction, _ = turnLeft45Degree(direction)
+	}
+	require.Equal(t, direction, iniDirection)
+}
+
+func TestTurnRight45Degree(t *testing.T) {
+	//case un support on basic is support now on advanced
+	_, errUnsupport := turnRight45Degree("NW")
+	require.NoError(t, errUnsupport)
+
+	//case un support advanced
+	_, errUnsupport = turnRight45Degree("NN")
+	require.Error(t, errUnsupport)
+
+	direction := iniDirection
+	//move 360 Degree back to init value
+	for i := 0; i < 8; i++ {
+		direction, _ = turnRight45Degree(direction)
+	}
+	require.Equal(t, direction, iniDirection)
+}
